@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  api-socks:
+    build: accounting-for-socks
+    container_name: accounting-for-socks
+    ports:
+      - "8080:8080"
+    depends_on:
+      - socks
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/socks
+
+  socks-db:
+    image: postgres:13.7-alpine
+    container_name: socks
+    ports:
+      - "6540:5432"
+    environment:
+      - POSTGRES_DB=socks
+      - POSTGRES_USER=Socks
+      - POSTGRES_PASSWORD=123
